@@ -32,6 +32,8 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here
 CDEFS = -DF_CPU=1000000UL
+CDEFS += -DGDDR=DDRD
+CDEFS += -DGPORT=PORTD
 
 # Place -I options here
 CINCS = 

@@ -5,13 +5,10 @@
 #ifndef GAMEPAD_H
 #define GAMEPAD_H
 
-#define clock 3 
-#define cmnd 1 
-#define data 0 
-#define att 2  
-#define sbi(x,y) (x |= (1 << y)) // setting pin high
-#define cbi(x,y) (x &= (~(1 << y))) // setting pin low
-#define bv(y) (1 << y) // shifting
+#if !defined(GPORT) || !defined(GDDR)
+#define GDDR  DDRD
+#define GPORT PORTD
+#endif
 
 // buttons constants
 #define psxLeft	 0x0001 
@@ -29,6 +26,17 @@
 #define psxR2	 0x4000
 #define psxL2	 0x8000
 
+// data/control line pins
+#define data     0
+#define cmnd     1
+#define att      2
+#define clock    3
+
+// macros for bit-wise operations
+#define sbi(x,y) (x |= (1 << y))             // setting pin high
+#define cbi(x,y) (x &= (~(1 << y)))          // setting pin low
+#define bv(y) (1 << y)                       // shifting
+
 // led pins for showing response from ps2
 #define ledPin1  0     
 #define ledPin2  1
@@ -36,9 +44,9 @@
 #define ledPin4  3
 
 extern uint8_t shift (uint8_t command);
-extern uint8_t psxstick (uint8_t);
-extern uint16_t psxbutton (void);
-extern void psxinit (void);
-extern void psxcommand (uint8_t send_data[], uint8_t size);
-extern void readgamepad (void);
+extern uint8_t psxStick (uint8_t);
+extern uint16_t psxButton (void);
+extern void psxInit (void);
+extern void psxCommand (uint8_t send_data[], uint8_t size);
+extern void readGamepad (void);
 #endif
